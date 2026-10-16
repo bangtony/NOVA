@@ -18,6 +18,33 @@ body:
         - label: "Checked existing issues for duplicates / Проверил список задач на дубликаты"
           required: true
 
+  - type: input
+    id: cpu
+    attributes:
+      label: Processor (CPU) / Процессор
+      description: Exact CPU model / Точная модель процессора
+      placeholder: "e.g. AMD Ryzen 7 7800X3D / Intel Core Ultra 7 265KF / i5-12400F"
+    validations:
+      required: true
+
+  - type: input
+    id: gpu
+    attributes:
+      label: Graphics Card (GPU) / Видеокарта
+      description: GPU model / Модель видеокарты
+      placeholder: "e.g. NVIDIA RTX 4070 Super / AMD Radeon RX 7800 XT"
+    validations:
+      required: false
+
+  - type: input
+    id: win-version
+    attributes:
+      label: Windows Version & Build / Версия и сборка Windows
+      description: Edition, version and build number (winver) / Редакция, версия и номер сборки (winver)
+      placeholder: "e.g. Windows 11 Pro 24H2 (Build 26100.2044) / 25H2"
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
@@ -37,7 +64,8 @@ body:
   - type: textarea
     id: context
     attributes:
-      label: Additional info / Дополнительная информация
-      description: Screenshots, logs, error messages / Скриншоты, логи, сообщения об ошибках
+      label: Error Details, Logs & Screenshots / Логи, код ошибки и скриншоты
+      description: BSOD stop code (e.g. 0x1E KMODE_EXCEPTION_NOT_HANDLED), crash dumps, or attach log from C:\ProgramData\AME\Logs\
+      placeholder: "BSOD stop code, error message, or paste contents of AME Log.yml / Output.txt here..."
     validations:
       required: false

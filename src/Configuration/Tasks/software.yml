@@ -42,7 +42,7 @@ actions:
   - !writeStatus: {status: 'Installing Helium', option: browser-helium}
   - !download:
     option: browser-helium
-    url: 'https://github.com/imputnet/helium-windows/releases/latest/download/helium_0.17.0.1_x64-installer.exe'
+    url: 'https://github.com/imputnet/helium-windows/releases/download/0.19.3.1/helium_0.19.3.1_x64-installer.exe'
     destination: 'HeliumInstaller.exe'
     package: 'helium'
   - !cmd: {command: 'start "HeliumInstaller" /b /wait "HeliumInstaller.exe" /S /SYSTEM', exeDir: true, option: browser-helium}

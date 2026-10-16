@@ -45,7 +45,6 @@ if ($SimulatedProcessorName) {
     $isIntel = $cpu.Manufacturer -match 'Intel'
 }
 
-$isLockedIntel = $isIntel -and ($name -notmatch '(?i)\b\d{3,5}\s*(K|KF|KS|X|XE)\b')
 $isDualCcdX3D = ($name -match 'Ryzen.*(7900X3D|7950X3D|9900X3D|9950X3D)' -or ($name -match 'Ryzen\s+9' -and $name -match 'X3D'))
 
 if (-not ([System.Management.Automation.PSTypeName]'CpuTopology').Type) {
@@ -102,10 +101,10 @@ public static class CpuTopology {
 }
 $efficiencyClasses = [CpuTopology]::EfficiencyClasses()
 $isHybrid = $efficiencyClasses -gt 1
-if (-not $isHybrid -and $SimulatedProcessorName -and ($name -match '(?i)\b(12|13|14)\d{3}|Ultra')) {
+if (-not $isHybrid -and ($name -match '(?i)\b(12|13|14)\d{3}|Ultra')) {
     $isHybrid = $true
 }
-if (-not $isDualCcdX3D -and -not $SimulatedProcessorName) {
+if (-not $isDualCcdX3D) {
     $isDualCcdX3D = [CpuTopology]::HasAsymmetricL3()
 }
 
@@ -127,18 +126,6 @@ function Set-Idx {
     Invoke-PowerCfg -Arguments @('/setdcvalueindex', $novaGuid, $proc, $Setting, $Dc)
 }
 
-if ($isLockedIntel) {
-    Set-Idx '06cadf0e-64ed-448a-8927-ce7bf90eb35d' 1 1
-    Set-Idx '06cadf0e-64ed-448a-8927-ce7bf90eb35e' 1 1
-    Set-Idx '12a0ab44-fe28-4fa9-b3bd-4b64f44960a6' 1 1
-    Set-Idx '12a0ab44-fe28-4fa9-b3bd-4b64f44960a7' 1 1
-    Set-Idx '4b92d758-5a24-4851-a470-815d78aee119' 1 1
-} else {
-    Set-Idx '06cadf0e-64ed-448a-8927-ce7bf90eb35d' 0 0
-    Set-Idx '06cadf0e-64ed-448a-8927-ce7bf90eb35e' 0 0
-    Set-Idx '12a0ab44-fe28-4fa9-b3bd-4b64f44960a6' 0 0
-    Set-Idx '12a0ab44-fe28-4fa9-b3bd-4b64f44960a7' 0 0
-}
 
 if ($isHybrid) {
     Set-Idx '93b8b6dc-0698-4d1c-9ee4-0644e900c85d' 2   5
