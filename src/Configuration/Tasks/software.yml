@@ -10,27 +10,29 @@ actions:
 
   # Browsers
   - !writeStatus: {status: 'Installing Brave', option: browser-brave}
-  - !download: 
+  - !download:
     option: browser-brave
     url: 'https://github.com/brave/brave-browser/releases/latest/download/BraveBrowserStandaloneSetup.exe'
     destination: 'BraveBrowserStandaloneSetup.exe'
     package: 'brave'
-  - !cmd: {command: 'start "BraveBrowserStandaloneSetup" /b /wait "BraveBrowserStandaloneSetup.exe" /silent /install', exeDir: true, option: browser-brave}
-  - !powerShell: {command: '.\BROWSER.ps1 -Brave -uBlock', exeDir: true, option: browser-brave}
+  - !run: {exe: 'BraveBrowserStandaloneSetup.exe', args: '/silent /install', exeDir: true, option: browser-brave}
+  - !powerShell: {command: '.\BROWSER.ps1 -Brave -uBlock', exeDir: true, wait: true, option: browser-brave}
 
   - !writeStatus: {status: 'Installing Firefox', option: browser-firefox}
   - !software:
     option: browser-firefox
     name: 'firefox'
     source: chocolatey
-  - !powerShell: {command: '.\BROWSER.ps1 -Firefox', exeDir: true, option: browser-firefox}
+    package: 'firefox'
+  - !powerShell: {command: '.\BROWSER.ps1 -Firefox', exeDir: true, wait: true, option: browser-firefox}
 
   - !writeStatus: {status: 'Installing Chrome', option: browser-chrome}
   - !software:
     option: browser-chrome
     name: 'googlechrome'
     source: chocolatey
-  - !powerShell: {command: '.\BROWSER.ps1 -Chrome', exeDir: true, option: '!uninstall-edge'}
+    package: 'chrome'
+  - !powerShell: {command: '.\BROWSER.ps1 -Chrome', exeDir: true, wait: true, option: browser-chrome}
 
   - !writeStatus: {status: 'Installing LibreWolf', option: browser-librewolf}
   - !software:
@@ -42,11 +44,12 @@ actions:
   - !writeStatus: {status: 'Installing Helium', option: browser-helium}
   - !download:
     option: browser-helium
-    url: 'https://github.com/imputnet/helium-windows/releases/download/0.19.3.1/helium_0.19.3.1_x64-installer.exe'
+    git: 'https://github.com/imputnet/helium-windows'
+    regex: 'helium_.*_x64-installer\.exe'
     destination: 'HeliumInstaller.exe'
     package: 'helium'
-  - !cmd: {command: 'start "HeliumInstaller" /b /wait "HeliumInstaller.exe" /S /SYSTEM', exeDir: true, option: browser-helium}
-  - !powerShell: {command: '.\BROWSER.ps1 -Helium', exeDir: true, option: browser-helium}
+  - !run: {exe: 'HeliumInstaller.exe', args: '/S /SYSTEM', exeDir: true, option: browser-helium}
+  - !powerShell: {command: '.\BROWSER.ps1 -Helium', exeDir: true, wait: true, option: browser-helium}
 
   - !writeStatus: {status: 'Installing Zen Browser', option: browser-zen}
   - !download:
@@ -54,11 +57,11 @@ actions:
     url: 'https://github.com/zen-browser/desktop/releases/latest/download/zen.installer.exe'
     destination: 'zen.installer.exe'
     package: 'zen'
-  - !cmd: {command: 'start "ZenInstaller" /b /wait "zen.installer.exe" /S', exeDir: true, option: browser-zen}
-  - !powerShell: {command: '.\BROWSER.ps1 -Zen', exeDir: true, option: browser-zen}
+  - !run: {exe: 'zen.installer.exe', args: '/S', exeDir: true, option: browser-zen}
+  - !powerShell: {command: '.\BROWSER.ps1 -Zen', exeDir: true, wait: true, option: browser-zen}
 
   - !status: {status: 'Configuring Edge', option: '!uninstall-edge'}
-  - !powerShell: {command: '.\BROWSER.ps1 -Edge -uBlock', exeDir: true, option: '!uninstall-edge'}
+  - !powerShell: {command: '.\BROWSER.ps1 -Edge -uBlock', exeDir: true, wait: true, option: '!uninstall-edge'}
 
   # Media players
   - !writeStatus: {status: 'Installing MPC-HC', option: mpc-hc}
@@ -66,12 +69,14 @@ actions:
     option: mpc-hc
     name: 'mpc-hc'
     source: chocolatey
+    package: 'mpc-hc'
 
   - !writeStatus: {status: 'Installing VLC', option: vlc}
   - !software:
     option: vlc
     name: 'vlc'
     source: chocolatey
+    package: 'vlc'
 
   # Archivers
   - !writeStatus: {status: 'Installing 7zip', option: 7-zip}
@@ -79,12 +84,14 @@ actions:
     option: 7-zip
     name: '7zip'
     source: chocolatey
+    package: '7-zip'
 
   - !writeStatus: {status: 'Installing WinRAR', option: winrar}
   - !software:
     option: winrar
     name: 'winrar'
     source: chocolatey
+    package: 'winrar'
 
   # Launchers 
   - !writeStatus: {status: 'Installing Steam', option: steam}
@@ -92,12 +99,14 @@ actions:
     option: steam
     name: 'steam'
     source: chocolatey
+    package: 'steam'
 
   - !writeStatus: {status: 'Installing EA app', option: ea-app}
   - !software:
     option: ea-app
     name: 'ea-app'
     source: chocolatey
+    package: 'ea-app'
   - !taskKill: {name: 'EA*'}
 
   - !writeStatus: {status: 'Installing Epic Games', option: epicgameslauncher}
@@ -105,12 +114,14 @@ actions:
     option: epicgameslauncher
     name: 'epicgameslauncher'
     source: chocolatey
+    package: 'epic-games'
 
   - !writeStatus: {status: 'Installing Ubisoft', option: ubisoft-connect}
   - !software:
     option: ubisoft-connect
     name: 'ubisoft-connect'
     source: chocolatey
+    package: 'ubisoft-connect'
 
   # Development Tools
   - !writeStatus: {status: 'Installing Visual Studio Code', option: vscode}
@@ -118,21 +129,25 @@ actions:
     option: vscode
     name: 'vscode'
     source: chocolatey
+    package: 'vscode'
 
   - !writeStatus: {status: 'Installing Visual Studio 2026', option: vs2026}
   - !software:
     option: vs2026
     name: 'visualstudio2026community'
     source: chocolatey
+    package: 'vs2026'
 
   - !writeStatus: {status: 'Installing Git', option: git}
   - !software:
     option: git
     name: 'git'
     source: chocolatey
+    package: 'git'
 
   - !writeStatus: {status: 'Installing Notepad++', option: notepadplusplus}
   - !software:
     option: notepadplusplus
     name: 'notepadplusplus'
-    source: chocolatey
+    source: chocolatey
+    package: 'notepadplusplus'
