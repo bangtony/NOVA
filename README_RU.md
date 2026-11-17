@@ -20,7 +20,7 @@
       <img src="https://img.shields.io/badge/YOUTUBE-INTRODUCING-5B3CA1?style=for-the-badge&logo=youtube" alt="YouTube">
     </a>
     <a href="https://dsc.gg/nova-project" aria-label="Discord сервер" rel="noopener" target="_blank">
-      <img src="https://img.shields.io/badge/DISCORD-COMMUNITY-5B3CA1?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+      <img src="https://img.shields.io/badge/DISCORD-COMMUNITY-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
     </a>
   </p>
 
@@ -193,6 +193,6 @@ NOVA следует принципам Open Source. Файл playbook (`.apbx`) 
     <img src="https://img.shields.io/badge/JOIN-THE_DISCUSSION%2FISSUES%2FFEATURES-5B3CA1?style=for-the-badge&logo=github&logoColor=white" alt="Discussion">
   </a>
   <a href="https://dsc.gg/nova-project" aria-label="Discord сервер" rel="noopener" target="_blank">
-    <img src="https://img.shields.io/badge/DISCORD-COMMUNITY-5B3CA1?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+    <img src="https://img.shields.io/badge/DISCORD-COMMUNITY-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
 </div>
